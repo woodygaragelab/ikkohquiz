@@ -1,0 +1,8 @@
+
+POST https://lcsq4jnuij.execute-api.ap-northeast-1.amazonaws.com/default/ikkohquiz
+Content-Type: application/json
+
+{
+    "body": ""
+}
+
