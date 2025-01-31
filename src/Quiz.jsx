@@ -24,7 +24,8 @@ const QuizApp = () => {
         question: q.question,
         image: q.image, // S3のimage fileへのpresigned URL
         answer: q.answer,
-        options: generateOptions(q.answer, bodyjson.map(item => item.answer))
+        // options: generateOptions(q.answer, bodyjson.map(item => item.answer))
+        options: generateOptions(q, bodyjson)
       }));
       setQuestions(data);
     }
@@ -35,12 +36,12 @@ const QuizApp = () => {
     const shuffledAnswers = allAnswers
       .filter(answer => answer !== correctAnswer) // 正解を除外
       .sort(() => 0.5 - Math.random()) // ランダムに並び替え
-      .slice(0, 2); // 2つ選択
+      .slice(0, 3); // 不正解を3つ選択し、4択にする
     return [...shuffledAnswers, correctAnswer].sort(() => 0.5 - Math.random()); // 正解を含めて再度ランダム化
   };
 
   const handleAnswerOptionClick = (selectedOption) => {
-    if (selectedOption === questions[currentQuestion].answer) {
+    if (selectedOption.answer === questions[currentQuestion].answer) {
       setScore(score + 1);
       setFeedback("正解です！");
     } else {
@@ -55,7 +56,7 @@ const QuizApp = () => {
       } else {
         setShowScore(true);
       }
-    }, 2000); // 2秒後に次の質問に進む
+    }, 1000); // 2秒後に次の質問に進む
   };
 
   return (
@@ -67,28 +68,41 @@ const QuizApp = () => {
         </div>
       ) : questions.length > 0 ? (
         <div>
-          <h1>{questions[currentQuestion].question}</h1>
-          <img
-            src={questions[currentQuestion].image}
-            alt="question"
-            style={{ width: '100%', maxWidth: '200px', margin: '20px 0' }}
-          />
-          <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <h1 style={{ fontSize: '96px' }}>{questions[currentQuestion].question}</h1>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(2, 1fr)', // 2列
+              gap: '10px',                          // カード間の余白
+              maxWidth: '400px',                    // 最大幅の例
+              margin: '0 auto',                     // 中央寄せ
+              textAlign: 'center'                   // テキスト中央寄せ（必要に応じて）
+            }}
+          >
             {questions[currentQuestion].options.map((option, index) => (
               <button
                 key={index}
                 onClick={() => handleAnswerOptionClick(option)}
                 style={{
-                  padding: '10px 20px',
+                  padding: '15px',
                   backgroundColor: '#007BFF',
                   color: '#fff',
                   border: 'none',
                   borderRadius: '5px',
-                  cursor: 'pointer'
-                }}          
-              >
-                {option}
-              </button>
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  fontSize: '24px' // 文字を大きくする
+                }}
+            >
+              <img
+                src={option.image} // オプションに対応する画像
+                alt={option.answer}
+                style={{ width: '50px', height: '50px' }}
+              />
+              {option.answer}
+            </button>
             ))}
           </div>
           {feedback && (
