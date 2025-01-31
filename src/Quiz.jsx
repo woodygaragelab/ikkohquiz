@@ -68,7 +68,7 @@ const QuizApp = () => {
         </div>
       ) : questions.length > 0 ? (
         <div>
-          <h1 style={{ fontSize: '96px' }}>{questions[currentQuestion].question}</h1>
+          <h1 style={{ fontSize: '96px', textAlign: 'center' }}>{questions[currentQuestion].question}</h1>
           <div
             style={{
               display: 'grid',
