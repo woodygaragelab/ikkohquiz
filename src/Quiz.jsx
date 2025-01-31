@@ -71,23 +71,21 @@ const QuizApp = () => {
           <img
             src={questions[currentQuestion].image}
             alt="question"
-            style={{ width: '100%', maxWidth: '400px', margin: '20px 0' }}
+            style={{ width: '100%', maxWidth: '200px', margin: '20px 0' }}
           />
-          <div>
+          <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' }}>
             {questions[currentQuestion].options.map((option, index) => (
               <button
                 key={index}
                 onClick={() => handleAnswerOptionClick(option)}
                 style={{
-                  display: 'block',
-                  margin: '10px 0',
                   padding: '10px 20px',
                   backgroundColor: '#007BFF',
                   color: '#fff',
                   border: 'none',
                   borderRadius: '5px',
                   cursor: 'pointer'
-                }}
+                }}          
               >
                 {option}
               </button>
