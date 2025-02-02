@@ -60,7 +60,7 @@ const QuizApp = () => {
   };
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
+    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif', width: '100%' }}>
       {showScore ? (
         <div>
           <h1>クイズ結果</h1>
@@ -91,17 +91,20 @@ const QuizApp = () => {
                   borderRadius: '5px',
                   cursor: 'pointer',
                   display: 'flex',
+                  flexDirection: 'column',
                   alignItems: 'center',
                   gap: '8px',
-                  fontSize: '24px' // 文字を大きくする
+                  fontSize: '24px', // 文字を大きくする
+                  textAlign: 'center'
                 }}
             >
               <img
                 src={option.image} // オプションに対応する画像
                 alt={option.answer}
-                style={{ width: '50px', height: '50px' }}
+                style={{ width: '100px', height: '100px' }}
               />
-              {option.answer}
+              <span>{option.answer}</span>
+              <span style={{ fontSize: '14px', color: '#0044CC' }}>{option.langid}</span>
             </button>
             ))}
           </div>
