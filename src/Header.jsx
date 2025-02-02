@@ -6,7 +6,8 @@ const Header = () => {
         padding: '15px',
         textAlign: 'center',
         fontSize: '18px',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        width: '100%'
       }}>
         Kanji Quiz
       </header>
