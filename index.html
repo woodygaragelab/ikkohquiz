@@ -23,7 +23,7 @@
           flex-direction: column;
           height: 100vh; /* ビューポートの高さ100% */
           width: 100vw; 
-          max-width: 400px; 
+          max-width: 600px; 
         }
       /* ヘッダー */
       .header {
@@ -38,15 +38,15 @@
 
       /* メインエリア */
       .main {
-          flex: 1; /* 残りのスペースを埋める */
+          flex: 1; /* Header/Fotterの残りのスペースを埋める */
           display: flex;
           flex-direction: column;
-          padding: 5px;
+          padding: 0px;
       }
 
       /* 問題エリア */
       .question {
-          flex: 0 0 20%; /* 高さ30% */
+          flex: 0 0 20%; /* mainの高さ% */
           background-color: #fff7d7;
           color: black;
           font-size: 96px;
@@ -54,16 +54,26 @@
       }
       /* 回答エリア */
       .answer {
-        flex: 1; /* 残り　高さ70% */
-        padding: 10px;
+        flex: 1; /* mainの残り　高さ70% */
+        padding: 30px;
         background-color: #d7fae6;
         color: white;
         text-align: center;
         display: grid;
         grid-template-columns: repeat(2, 1fr); 
-        gap: 10px; 
+        gap: 20px; 
           /* max-width: 400px;  */
-        margin: 0 auto; 
+        /* margin: 0 auto;  */
+        margin: 0; 
+      }
+      /* フィードバックエリア */
+      .feedback {
+        flex: 0 0 10; /* mainの高さ% */
+        padding: 30px;
+        background-color: #ffd9f2;
+        color: rgb(253, 46, 46);
+        text-align: center;
+        margin: 0; 
       }
 
       

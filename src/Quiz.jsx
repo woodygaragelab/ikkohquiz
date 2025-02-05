@@ -73,7 +73,11 @@ const QuizApp = () => {
       ) : questions.length > 0 ? (
         <div class="main">
           {/* <h1 style={{ fontSize: '96px', textAlign: 'center', width: '100%' }}>{questions[currentQuestion].question}</h1> */}
-          <h1 class="question">{questions[currentQuestion].question}</h1>
+          <div class="question">
+            {/* <h1> */}
+              {questions[currentQuestion].question}
+            {/* </h1> */}
+          </div>
           {/* <div
             style={{
               display: 'grid',
@@ -90,7 +94,7 @@ const QuizApp = () => {
                 key={index}
                 onClick={() => handleAnswerOptionClick(option)}
                 style={{
-                  padding: '15px',
+                  padding: '20px',
                   backgroundColor: '#007BFF',
                   color: '#fff',
                   border: 'none',
@@ -107,18 +111,21 @@ const QuizApp = () => {
               <img
                 src={option.image} // オプションに対応する画像
                 alt={option.answer}
-                style={{ width: '100px', height: '100px' }}
+                style={{ width: '200px', height: '200px' }}
               />
               <span>{option.answer}</span>
               <span style={{ fontSize: '14px', color: '#0044CC' }}>{option.langid}</span>
             </button>
             ))}
           </div>
-          {feedback && (
+          <div class="feedback">
+            {feedback}
+          </div>
+          {/* {feedback && (
             <p style={{ marginTop: '20px', fontWeight: 'bold', color: feedback === "正解です！" ? "green" : "red" }}>
               {feedback}
             </p>
-          )}
+          )} */}
         </div>
       ) : (
         <p>クイズを読み込み中...</p>
