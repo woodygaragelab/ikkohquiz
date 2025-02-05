@@ -111,7 +111,9 @@ const QuizApp = () => {
               <img
                 src={option.image} // オプションに対応する画像
                 alt={option.answer}
-                style={{ width: '200px', height: '200px' }}
+                // style={{ width: '200px', height: '200px' }}
+                style={{ width: '30vw', height: '200px' }}
+                
               />
               <span>{option.answer}</span>
               <span style={{ fontSize: '14px', color: '#0044CC' }}>{option.langid}</span>
