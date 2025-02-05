@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // import { fetchQuizData } from './FetchQuizData';
+import Header from './Header.jsx'
+import Footer from './Footer.jsx'
 
 const QuizApp = () => {
   const [questions, setQuestions] = useState([]);
@@ -60,16 +62,19 @@ const QuizApp = () => {
   };
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif', width: '100%' }}>
+    // <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif', width: '100%' }}>
+    <div class="container">
+      <Header/>
       {showScore ? (
         <div>
           <h1>クイズ結果</h1>
           <p>正解数: {score} / {questions.length}</p>
         </div>
       ) : questions.length > 0 ? (
-        <div>
-          <h1 style={{ fontSize: '96px', textAlign: 'center', width: '100%' }}>{questions[currentQuestion].question}</h1>
-          <div
+        <div class="main">
+          {/* <h1 style={{ fontSize: '96px', textAlign: 'center', width: '100%' }}>{questions[currentQuestion].question}</h1> */}
+          <h1 class="question">{questions[currentQuestion].question}</h1>
+          {/* <div
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(2, 1fr)', // 2列
@@ -78,7 +83,8 @@ const QuizApp = () => {
               margin: '0 auto',                     // 中央寄せ
               textAlign: 'center'                   // テキスト中央寄せ（必要に応じて）
             }}
-          >
+          > */}
+          <div class="answer">
             {questions[currentQuestion].options.map((option, index) => (
               <button
                 key={index}
@@ -117,6 +123,7 @@ const QuizApp = () => {
       ) : (
         <p>クイズを読み込み中...</p>
       )}
+    <Footer/>
     </div>
   );
 };

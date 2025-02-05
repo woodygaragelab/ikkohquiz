@@ -4,10 +4,94 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    <title>Ikkoh Quiz</title>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+
+    <style>
+      /* 全体を画面いっぱいに */
+      html, body {
+          height: 100%;
+          margin: 0;
+          padding: 0;
+      }
+      /* メインコンテナ */
+      .container {
+          display: flex;
+          flex-direction: column;
+          height: 100vh; /* ビューポートの高さ100% */
+      }
+      /* ヘッダー */
+      .header {
+          flex: 0 0 5%; /* 高さ% */
+          padding: 5px;  /* padding: 10px;*/
+          background-color: #007BFF;   /* #3498db; */
+          color: white;    /* '#fff'; */
+          text-align: center;
+          font-size: 24px;
+          font-weight: bold;
+      }
+
+      /* メインエリア */
+      .main {
+          flex: 1; /* 残りのスペースを埋める */
+          display: flex;
+          flex-direction: column;
+          padding: 5px;
+      }
+
+      /* 問題エリア */
+      .question {
+          flex: 0 0 20%; /* 高さ30% */
+          background-color: #fff7d7;
+          color: black;
+          font-size: 96px;
+          text-align: center;
+      }
+      /* 回答エリア */
+      .answer {
+        flex: 1; /* 残り　高さ70% */
+        padding: 10px;
+        background-color: #d7fae6;
+        color: white;
+        text-align: center;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 10px; 
+          /* max-width: 400px;  */
+        margin: 0 auto; 
+      }
+
+      
+      /* 不使用 */
+      .sidebar {
+          background-color: #2ecc71;
+          color: white;
+          text-align: center;
+          padding: 10px;
+          flex: 0 0 30%; /* 幅30% */
+      }
+
+      /* 不使用　メインコンテンツ */
+      .content {
+          background-color: #f1c40f;
+          color: black;
+          text-align: center;
+          padding: 10px;
+          flex: 1; /* 残りのスペースを埋める (70%) */
+      }
+
+      /* フッター */
+      .footer {
+        flex: 0 0 3%; /* 高さ% */
+        background-color: #C0C0C0;
+        padding: 5px;
+        color: black;
+        text-align: center;
+      }
+  </style>
+
   </body>
 </html>
