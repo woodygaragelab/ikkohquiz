@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import { fetchQuizData } from './FetchQuizData';
 import Header from './Header.jsx'
 import Footer from './Footer.jsx'
 
@@ -58,7 +57,7 @@ const QuizApp = () => {
       } else {
         setShowScore(true);
       }
-    }, 1000); // 2秒後に次の質問に進む
+    }, 1000); // m秒後に次の質問に進む
   };
 
   return (
@@ -84,7 +83,6 @@ const QuizApp = () => {
               <img
                 src={option.image} // オプションに対応する画像
                 alt={option.answer}
-                // style={{ width: '200px', height: '200px' }}
                 style={{ width: '20vw', height: '20vw' }}      
                 // button sizeを元にimage sizeを決めるようにしたい、方法不明
                 // image size を大きくするとbutton, answer areaが大きくなってしまう。
