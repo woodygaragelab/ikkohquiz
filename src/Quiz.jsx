@@ -48,7 +48,7 @@ const QuizApp = () => {
     } else {
       setFeedback(`不正解です。正解は「${questions[currentQuestion].answer}」です。`);
     }
-
+    
     setTimeout(() => {
       setFeedback(""); // フィードバックをクリア
       const nextQuestion = currentQuestion + 1;
@@ -60,13 +60,20 @@ const QuizApp = () => {
     }, 1000); // m秒後に次の質問に進む
   };
 
+  const handleNextClick = () => {
+    setScore(0);
+    setCurrentQuestion(1);
+    setShowScore(false);
+  };
+
   return (
     <div class="container">
       <Header/>
       {showScore ? (
-        <div>
+        <div class="main">
           <h1>クイズ結果</h1>
-          <p>正解数: {score} / {questions.length}</p>
+          <h2>正解率:{score / questions.length * 100}%  ({score} / {questions.length})</h2>
+          <button class="button" onClick={() => handleNextClick()}>Next</button>
         </div>
       ) : questions.length > 0 ? (
         <div class="main">
