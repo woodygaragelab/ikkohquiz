@@ -1,6 +1,6 @@
 const Header = () => {
     return (
-      <div class="header">
+      <div className="header">
       Kanji Quiz
       </div>
     );

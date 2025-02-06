@@ -4,6 +4,7 @@ import Footer from './Footer.jsx'
 
 const QuizApp = () => {
   const [questions, setQuestions] = useState([]);
+  const [currentGroup, setCurrentGroup] = useState(1);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
@@ -14,14 +15,14 @@ const QuizApp = () => {
     async function fetchData() {
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
-      // var raw = JSON.stringify({"filename":"ikkohquiz"});
-      var raw = JSON.stringify({});
+      var raw = JSON.stringify({"group":String(currentGroup)});
       var requestOptions = {method: 'POST', headers: myHeaders, body: raw, redirect: 'follow' };
       const response = await fetch("https://lcsq4jnuij.execute-api.ap-northeast-1.amazonaws.com/default/ikkohquiz", requestOptions)
       const resjson = await response.json();
       const body = resjson.body;
       const bodyjson = JSON.parse(body);
       const data = bodyjson.map(q => ({
+        no: q.no,
         question: q.question,
         image: q.image, // S3のimage fileへのpresigned URL
         answer: q.answer,
@@ -29,6 +30,7 @@ const QuizApp = () => {
         options: generateOptions(q, bodyjson)
       }));
       setQuestions(data);
+      console.log(data);
     }
     fetchData();
   }, []);
@@ -67,25 +69,28 @@ const QuizApp = () => {
   };
 
   return (
-    <div class="container">
+    <div className="container">
       <Header/>
       {showScore ? (
-        <div class="main">
+        <div className="main">
           <h1>クイズ結果</h1>
           <h2>正解率:{score / questions.length * 100}%  ({score} / {questions.length})</h2>
-          <button class="button" onClick={() => handleNextClick()}>Next</button>
+          <button className="button" onClick={() => handleNextClick()}>Next</button>
         </div>
       ) : questions.length > 0 ? (
-        <div class="main">
-          <div class="question">
+        <div className="main">
+          <div className="info">
+              {currentGroup}-{questions[currentQuestion].no}
+          </div>
+          <div className="question">
               {questions[currentQuestion].question}
           </div>
-          <div class="answer">
+          <div className="answer">
             {questions[currentQuestion].options.map((option, index) => (
               <button
                 key={index}
                 onClick={() => handleAnswerOptionClick(option)}
-                class="option"
+                className="option"
             >
               <img
                 src={option.image} // オプションに対応する画像
@@ -99,14 +104,9 @@ const QuizApp = () => {
             </button>
             ))}
           </div>
-          <div class="feedback">
+          <div className="feedback">
             {feedback}
           </div>
-          {/* {feedback && (
-            <p style={{ marginTop: '20px', fontWeight: 'bold', color: feedback === "正解です！" ? "green" : "red" }}>
-              {feedback}
-            </p>
-          )} */}
         </div>
       ) : (
         <p>クイズを読み込み中...</p>

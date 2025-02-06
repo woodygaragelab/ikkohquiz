@@ -1,5 +1,5 @@
-﻿no,question,image,answer,langid
-1,火,1.jpg,ひ,api
-2,庫,2.jpg,こ,gudang
-3,高,3.jpg,たか,mahal
-4,粉,4.jpg,こな,bubuk
+﻿group,no,question,image,answer,langid
+1,1,火,1.jpg,ひ,api
+1,2,庫,2.jpg,こ,gudang
+1,3,高,3.jpg,たか,mahal
+1,4,粉,4.jpg,こな,bubuk
