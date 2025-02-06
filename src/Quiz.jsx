@@ -62,7 +62,6 @@ const QuizApp = () => {
   };
 
   return (
-    // <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif', width: '100%' }}>
     <div class="container">
       <Header/>
       {showScore ? (
@@ -72,48 +71,23 @@ const QuizApp = () => {
         </div>
       ) : questions.length > 0 ? (
         <div class="main">
-          {/* <h1 style={{ fontSize: '96px', textAlign: 'center', width: '100%' }}>{questions[currentQuestion].question}</h1> */}
           <div class="question">
-            {/* <h1> */}
               {questions[currentQuestion].question}
-            {/* </h1> */}
           </div>
-          {/* <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(2, 1fr)', // 2列
-              gap: '10px',                          // カード間の余白
-              maxWidth: '400px',                    // 最大幅の例
-              margin: '0 auto',                     // 中央寄せ
-              textAlign: 'center'                   // テキスト中央寄せ（必要に応じて）
-            }}
-          > */}
           <div class="answer">
             {questions[currentQuestion].options.map((option, index) => (
               <button
                 key={index}
                 onClick={() => handleAnswerOptionClick(option)}
-                style={{
-                  padding: '20px',
-                  backgroundColor: '#007BFF',
-                  color: '#fff',
-                  border: 'none',
-                  borderRadius: '5px',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  gap: '8px',
-                  fontSize: '24px', // 文字を大きくする
-                  textAlign: 'center'
-                }}
+                class="option"
             >
               <img
                 src={option.image} // オプションに対応する画像
                 alt={option.answer}
                 // style={{ width: '200px', height: '200px' }}
-                style={{ width: '30vw', height: '200px' }}
-                
+                style={{ width: '20vw', height: '20vw' }}      
+                // button sizeを元にimage sizeを決めるようにしたい、方法不明
+                // image size を大きくするとbutton, answer areaが大きくなってしまう。
               />
               <span>{option.answer}</span>
               <span style={{ fontSize: '14px', color: '#0044CC' }}>{option.langid}</span>

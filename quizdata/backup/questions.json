@@ -1,0 +1,21 @@
+[
+    {
+      "id": 1,
+      "question": "晴",
+      "image": "https://cdn.glitch.global/dea509a3-b9d9-4a13-bfde-5220f0786271/img01.png?v=1737353001463",
+      "answer": "hare"
+    },
+    {
+      "id": 2,
+      "question": "曇",
+      "image": "https://cdn.glitch.global/dea509a3-b9d9-4a13-bfde-5220f0786271/img02.png?v=1737353001463",
+      "answer": "kumori"
+    },
+    {
+      "id": 3,
+      "question": "雨",
+      "image": "https://drive.google.com/uc?id=1NwLTdxER4Ky1LfDt72jO8sXahaEByS4U",
+      "answer": "ame"
+    }
+  ]
+  

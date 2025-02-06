@@ -17,7 +17,7 @@
           margin: 0;
           padding: 0;
       }
-      /* メインコンテナ */
+      /* メインコンテナ （ViewPort）*/
       .container {
           display: flex;
           flex-direction: column;
@@ -25,28 +25,38 @@
           width: 100vw; 
           /* max-width: 600px;  */
         }
+
+      /***** Container（ViewPort）の内容 *****/
       /* ヘッダー */
       .header {
-          flex: 0 0 5%; /* 高さ% */
-          padding: 5px;  /* padding: 10px;*/
-          background-color: #007BFF;   /* #3498db; */
-          color: white;    /* '#fff'; */
+          flex: 0 0 5%; /* 高さ：Container（ViewPort）の% */
+          padding: 5px;  
+          background-color: #007BFF;  
+          color: white;   
           text-align: center;
           font-size: 24px;
           font-weight: bold;
       }
-
       /* メインエリア */
       .main {
-          flex: 1; /* Header/Fotterの残りのスペースを埋める */
+          flex: 0 0 80%; /* 高さ：Container(ViewPort)の% */
           display: flex;
           flex-direction: column;
           padding: 0px;
       }
+      /* フッター */
+      .footer {
+        flex: 0 0 3%;  /* 高さ：Container(ViewPort)の% */
+        background-color: #C0C0C0;
+        padding: 5px;
+        color: black;
+        text-align: center;
+      }
 
+      /***** Main エリアの内容 *****/
       /* 問題エリア */
       .question {
-          flex: 0 0 20%; /* mainの高さ% */
+          flex: 0 0 20%; /* 高さ: mainの% */
           background-color: #fff7d7;
           color: black;
           font-size: 96px;
@@ -54,7 +64,7 @@
       }
       /* 回答エリア */
       .answer {
-        flex: 1; /* mainの残り　高さ70% */
+        flex: 0 0 50%; /* 高さ: mainの% */
         padding: 30px;
         background-color: #d7fae6;
         color: white;
@@ -62,13 +72,25 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr); 
         gap: 20px; 
-          /* max-width: 400px;  */
-        /* margin: 0 auto;  */
         margin: 0; 
+      }
+      .option {
+        padding: 20px;
+        background-color: #777d78;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        font-size: 24px;
+        text-align: center;
       }
       /* フィードバックエリア */
       .feedback {
-        flex: 0 0 10; /* mainの高さ% */
+        flex: 0 0 20; /* 高さ: mainの% */
         padding: 30px;
         background-color: #ffd9f2;
         color: rgb(253, 46, 46);
@@ -95,14 +117,6 @@
           flex: 1; /* 残りのスペースを埋める (70%) */
       }
 
-      /* フッター */
-      .footer {
-        flex: 0 0 3%; /* 高さ% */
-        background-color: #C0C0C0;
-        padding: 5px;
-        color: black;
-        text-align: center;
-      }
   </style>
 
   </body>
