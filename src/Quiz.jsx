@@ -89,7 +89,7 @@ const QuizApp = () => {
         <div className="main">
           <h1>問題選択</h1>
           <div className="answer">
-            {[1, 2].map(group => (
+            {[1, 2, 3].map(group => (
               <button key={group} className="button" onClick={() => handleGroupSelect(group)}>
                 問題 {group}
               </button>
