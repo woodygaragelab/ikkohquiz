@@ -87,11 +87,11 @@ const QuizApp = () => {
       <Header/>
       {showGroupSelect ? (
         <div className="main">
-          <h1>グループを選択</h1>
+          <h1>問題選択</h1>
           <div className="answer">
             {[1, 2].map(group => (
               <button key={group} className="button" onClick={() => handleGroupSelect(group)}>
-                グループ {group}
+                問題 {group}
               </button>
             ))}
           </div>
@@ -100,7 +100,7 @@ const QuizApp = () => {
         <div className="main">
           <h1>クイズ結果</h1>
           <h2>正解率:{score / questions.length * 100}%  ({score} / {questions.length})</h2>
-          <button className="button" onClick={() => handleNextClick()}>グループ選択に戻る</button>
+          <button className="button" onClick={() => handleNextClick()}>問題選択</button>
         </div>
       ) : questions.length > 0 ? (
         <div className="main">
