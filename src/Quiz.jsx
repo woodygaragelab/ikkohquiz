@@ -4,13 +4,15 @@ import Footer from './Footer.jsx'
 
 const QuizApp = () => {
   const [questions, setQuestions] = useState([]);
-  const [currentGroup, setCurrentGroup] = useState(1);
+  const [currentGroup, setCurrentGroup] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
+  const [showGroupSelect, setShowGroupSelect] = useState(true);
   const [feedback, setFeedback] = useState(""); // 正解/不正解を表示
 
   useEffect(() => {
+    if (currentGroup === null) return;
     // API (ikkohquiz) からquizdatを取得する。
     async function fetchData() {
       var myHeaders = new Headers();
@@ -33,7 +35,16 @@ const QuizApp = () => {
       console.log(data);
     }
     fetchData();
-  }, []);
+  }, [currentGroup]);
+
+  const handleGroupSelect = (group) => {
+    setCurrentGroup(group);
+    setCurrentQuestion(0);
+    setScore(0);
+    setShowScore(false);
+    setShowGroupSelect(false);
+    setQuestions([]);
+  };
 
   const generateOptions = (correctAnswer, allAnswers) => {
     const shuffledAnswers = allAnswers
@@ -63,19 +74,33 @@ const QuizApp = () => {
   };
 
   const handleNextClick = () => {
+    setShowGroupSelect(true);
+    setCurrentGroup(null);
     setScore(0);
-    setCurrentQuestion(1);
+    setCurrentQuestion(0);
     setShowScore(false);
+    setQuestions([]);
   };
 
   return (
     <div className="container">
       <Header/>
-      {showScore ? (
+      {showGroupSelect ? (
+        <div className="main">
+          <h1>グループを選択</h1>
+          <div className="answer">
+            {[1, 2].map(group => (
+              <button key={group} className="button" onClick={() => handleGroupSelect(group)}>
+                グループ {group}
+              </button>
+            ))}
+          </div>
+        </div>
+      ) : showScore ? (
         <div className="main">
           <h1>クイズ結果</h1>
           <h2>正解率:{score / questions.length * 100}%  ({score} / {questions.length})</h2>
-          <button className="button" onClick={() => handleNextClick()}>Next</button>
+          <button className="button" onClick={() => handleNextClick()}>グループ選択に戻る</button>
         </div>
       ) : questions.length > 0 ? (
         <div className="main">
