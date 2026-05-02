@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from './Header.jsx'
 import Footer from './Footer.jsx'
+import { fetchQuizData } from './api/quizApi.js'
 
 const QuizApp = () => {
   const [questions, setQuestions] = useState([]);
@@ -13,28 +14,10 @@ const QuizApp = () => {
 
   useEffect(() => {
     if (currentGroup === null) return;
-    // API (ikkohquiz) からquizdatを取得する。
-    async function fetchData() {
-      var myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
-      var raw = JSON.stringify({"group":String(currentGroup)});
-      var requestOptions = {method: 'POST', headers: myHeaders, body: raw, redirect: 'follow' };
-      const response = await fetch("https://lcsq4jnuij.execute-api.ap-northeast-1.amazonaws.com/default/ikkohquiz", requestOptions)
-      const resjson = await response.json();
-      const body = resjson.body;
-      const bodyjson = JSON.parse(body);
-      const data = bodyjson.map(q => ({
-        no: q.no,
-        question: q.question,
-        image: q.image, // S3のimage fileへのpresigned URL
-        answer: q.answer,
-        // options: generateOptions(q.answer, bodyjson.map(item => item.answer))
-        options: generateOptions(q, bodyjson)
-      }));
+    fetchQuizData(currentGroup).then(data => {
       setQuestions(data);
       console.log(data);
-    }
-    fetchData();
+    });
   }, [currentGroup]);
 
   const handleGroupSelect = (group) => {
@@ -44,14 +27,6 @@ const QuizApp = () => {
     setShowScore(false);
     setShowGroupSelect(false);
     setQuestions([]);
-  };
-
-  const generateOptions = (correctAnswer, allAnswers) => {
-    const shuffledAnswers = allAnswers
-      .filter(answer => answer !== correctAnswer) // 正解を除外
-      .sort(() => 0.5 - Math.random()) // ランダムに並び替え
-      .slice(0, 3); // 不正解を3つ選択し、4択にする
-    return [...shuffledAnswers, correctAnswer].sort(() => 0.5 - Math.random()); // 正解を含めて再度ランダム化
   };
 
   const handleAnswerOptionClick = (selectedOption) => {
