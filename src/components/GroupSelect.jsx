@@ -1,13 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { fetchGroups } from '../api/quizApi';
 
 const GroupSelect = ({ onGroupSelect }) => {
   const [selected, setSelected] = useState(null);
+  const [groups, setGroups] = useState([]);
+
+  useEffect(() => {
+    fetchGroups().then(setGroups);
+  }, []);
 
   return (
     <div className="main">
       <h1>問題選択</h1>
       <ul style={{ listStyle: 'none', padding: 0 }}>
-        {[1, 2, 3].map(group => (
+        {groups.map(group => (
           <li
             key={group}
             onClick={() => setSelected(group)}

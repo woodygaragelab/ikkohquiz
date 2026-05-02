@@ -19,6 +19,14 @@ def lambda_handler(event, context):
         reader = csv.DictReader(content)
         quiz_list = [row for row in reader]
 
+        # group="0" の場合はグループ一覧を返す
+        if group == "0":
+            groups = sorted(set(q['group'] for q in quiz_list))
+            return {
+                'statusCode': 200,
+                'body': json.dumps(groups)
+            }
+
         #groupに一致するものだけを抽出
         quiz_list = [q for q in quiz_list if q['group'] == group]
 
@@ -31,7 +39,7 @@ def lambda_handler(event, context):
                 Params={'Bucket': bucket_name, 'Key': file_name},
                 ExpiresIn=3600  # 1時間 (3600秒)
             )
-            q['image'] = presigned_url            
+            q['image'] = presigned_url
 
     except Exception as e:
         return {
