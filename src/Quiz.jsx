@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Header from './Header.jsx'
 import Footer from './Footer.jsx'
 import { fetchQuizData } from './api/quizApi.js'
+import GroupSelect from './components/GroupSelect.jsx'
+import QuizQuestion from './components/QuizQuestion.jsx'
+import QuizResult from './components/QuizResult.jsx'
 
 const QuizApp = () => {
   const [questions, setQuestions] = useState([]);
@@ -61,53 +64,16 @@ const QuizApp = () => {
     <div className="container">
       <Header/>
       {showGroupSelect ? (
-        <div className="main">
-          <h1>問題選択</h1>
-          <div className="answer">
-            {[1, 2, 3].map(group => (
-              <button key={group} className="button" onClick={() => handleGroupSelect(group)}>
-                問題 {group}
-              </button>
-            ))}
-          </div>
-        </div>
+        <GroupSelect onGroupSelect={handleGroupSelect} />
       ) : showScore ? (
-        <div className="main">
-          <h1>クイズ結果</h1>
-          <h2>正解率:{score / questions.length * 100}%  ({score} / {questions.length})</h2>
-          <button className="button" onClick={() => handleNextClick()}>問題選択</button>
-        </div>
+        <QuizResult score={score} total={questions.length} onNext={handleNextClick} />
       ) : questions.length > 0 ? (
-        <div className="main">
-          <div className="info">
-              {currentGroup}-{questions[currentQuestion].no}
-          </div>
-          <div className="question">
-              {questions[currentQuestion].question}
-          </div>
-          <div className="answer">
-            {questions[currentQuestion].options.map((option, index) => (
-              <button
-                key={index}
-                onClick={() => handleAnswerOptionClick(option)}
-                className="option"
-            >
-              <img
-                src={option.image} // オプションに対応する画像
-                alt={option.answer}
-                style={{ width: '20vw', height: '20vw' }}      
-                // button sizeを元にimage sizeを決めるようにしたい、方法不明
-                // image size を大きくするとbutton, answer areaが大きくなってしまう。
-              />
-              <span>{option.answer}</span>
-              <span style={{ fontSize: '14px', color: '#0044CC' }}>{option.langid}</span>
-            </button>
-            ))}
-          </div>
-          <div className="feedback">
-            {feedback}
-          </div>
-        </div>
+        <QuizQuestion
+          currentGroup={currentGroup}
+          question={questions[currentQuestion]}
+          feedback={feedback}
+          onAnswerClick={handleAnswerOptionClick}
+        />
       ) : (
         <p>クイズを読み込み中...</p>
       )}
