@@ -25,7 +25,7 @@ const GroupSelect = ({ onGroupSelect }) => {
               color: '#000',
             }}
           >
-            問題 {group}
+            {group}
           </li>
         ))}
       </ul>

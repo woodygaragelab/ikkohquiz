@@ -62,7 +62,7 @@ const QuizApp = () => {
 
   return (
     <div className="container">
-      <Header/>
+      <Header onBack={showGroupSelect ? null : handleNextClick} />
       {showGroupSelect ? (
         <GroupSelect onGroupSelect={handleGroupSelect} />
       ) : showScore ? (
