@@ -41,6 +41,7 @@ export const fetchQuizData = async (group) => {
     no: q.no,
     question: q.question,
     image: q.image,
+    qimage: q.qimage,
     answer: q.answer,
     options: generateOptions(q, bodyjson)
   }));
