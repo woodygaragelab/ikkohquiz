@@ -1,7 +1,7 @@
 const Header = () => {
     return (
       <div className="header">
-      Kanji Quiz
+      Ikkoh Quiz
       </div>
     );
   };
