@@ -6,6 +6,17 @@ const getQuestionFontSize = (text) => {
   return 'clamp(0.7rem, 3vw, 1rem)';
 };
 
+const getOptionBorderStyle = (option, question, feedback) => {
+  if (!feedback) return {};
+  if (option.answer === feedback.selected.answer) {
+    return { border: `3px solid ${feedback.isCorrect ? '#22c55e' : '#ef4444'}`, borderRadius: '8px' };
+  }
+  if (!feedback.isCorrect && option.answer === question.answer) {
+    return { border: '3px solid #22c55e', borderRadius: '8px' };
+  }
+  return {};
+};
+
 const QuizQuestion = ({ currentGroup, question, feedback, onAnswerClick }) => {
   return (
     <div className="main">
@@ -26,8 +37,9 @@ const QuizQuestion = ({ currentGroup, question, feedback, onAnswerClick }) => {
         {question.options.map((option, index) => (
           <button
             key={index}
-            onClick={() => onAnswerClick(option)}
+            onClick={() => !feedback && onAnswerClick(option)}
             className="option"
+            style={getOptionBorderStyle(option, question, feedback)}
           >
             <img
               src={option.image}
@@ -38,9 +50,6 @@ const QuizQuestion = ({ currentGroup, question, feedback, onAnswerClick }) => {
             <span style={{ fontSize: '14px', color: '#0044CC' }}>{option.langid}</span>
           </button>
         ))}
-      </div>
-      <div className="feedback">
-        {feedback}
       </div>
     </div>
   );

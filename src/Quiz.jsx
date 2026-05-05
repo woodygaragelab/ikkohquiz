@@ -13,7 +13,7 @@ const QuizApp = () => {
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [showGroupSelect, setShowGroupSelect] = useState(true);
-  const [feedback, setFeedback] = useState(""); // 正解/不正解を表示
+  const [feedback, setFeedback] = useState(null); // { selected: option, isCorrect: bool }
 
   useEffect(() => {
     if (currentGroup === null) return;
@@ -33,22 +33,19 @@ const QuizApp = () => {
   };
 
   const handleAnswerOptionClick = (selectedOption) => {
-    if (selectedOption.answer === questions[currentQuestion].answer) {
-      setScore(score + 1);
-      setFeedback("正解です！");
-    } else {
-      setFeedback(`不正解です。正解は「${questions[currentQuestion].answer}」です。`);
-    }
-    
+    const isCorrect = selectedOption.answer === questions[currentQuestion].answer;
+    if (isCorrect) setScore(score + 1);
+    setFeedback({ selected: selectedOption, isCorrect });
+
     setTimeout(() => {
-      setFeedback(""); // フィードバックをクリア
+      setFeedback(null);
       const nextQuestion = currentQuestion + 1;
       if (nextQuestion < questions.length) {
         setCurrentQuestion(nextQuestion);
       } else {
         setShowScore(true);
       }
-    }, 1000); // m秒後に次の質問に進む
+    }, 1000);
   };
 
   const handleNextClick = () => {
