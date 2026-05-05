@@ -32,14 +32,13 @@ def lambda_handler(event, context):
 
         #画像のfile名をpresignedURLに置き換える
         for q in quiz_list:
-            file_name = q['image']
-            # presigned URLを生成（GET用）
-            presigned_url = s3.generate_presigned_url(
-                'get_object',
-                Params={'Bucket': bucket_name, 'Key': file_name},
-                ExpiresIn=3600  # 1時間 (3600秒)
-            )
-            q['image'] = presigned_url
+            for key in ('image', 'qimage'):
+                if q.get(key):
+                    q[key] = s3.generate_presigned_url(
+                        'get_object',
+                        Params={'Bucket': bucket_name, 'Key': q[key]},
+                        ExpiresIn=3600  # 1時間 (3600秒)
+                    )
 
     except Exception as e:
         return {

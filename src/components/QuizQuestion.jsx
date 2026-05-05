@@ -4,8 +4,15 @@ const QuizQuestion = ({ currentGroup, question, feedback, onAnswerClick }) => {
       <div className="info">
         {currentGroup}-{question.no}
       </div>
-      <div className="question">
-        {question.question}
+      <div className="question" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        {question.qimage && (
+          <img
+            src={question.qimage}
+            alt=""
+            style={{ width: '20vw', height: '20vw', objectFit: 'contain', flexShrink: 0 }}
+          />
+        )}
+        <span>{question.question}</span>
       </div>
       <div className="answer">
         {question.options.map((option, index) => (
