@@ -9,10 +9,10 @@ const getQuestionFontSize = (text) => {
 const getOptionBorderStyle = (option, question, feedback) => {
   if (!feedback) return {};
   if (option.answer === feedback.selected.answer) {
-    return { border: `3px solid ${feedback.isCorrect ? '#22c55e' : '#ef4444'}`, borderRadius: '8px' };
+    return { border: `6px solid ${feedback.isCorrect ? '#4ade80' : '#f87171'}`, borderRadius: '8px' };
   }
   if (!feedback.isCorrect && option.answer === question.answer) {
-    return { border: '3px solid #22c55e', borderRadius: '8px' };
+    return { border: '6px solid #4ade80', borderRadius: '8px' };
   }
   return {};
 };
