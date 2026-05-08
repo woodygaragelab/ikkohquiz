@@ -1,9 +1,10 @@
 const getQuestionFontSize = (text) => {
   const len = text.length;
-  if (len <= 15) return 'clamp(1.8rem, 6vw, 2.4rem)';
-  if (len <= 30) return 'clamp(1.4rem, 5vw, 2rem)';
-  if (len <= 50) return 'clamp(1.1rem, 4vw, 1.6rem)';
-  return 'clamp(0.9rem, 3.5vw, 1.3rem)';
+  if (len <= 5)  return 'clamp(3rem, 10vw, 4.5rem)';
+  if (len <= 15) return 'clamp(2.2rem, 7vw, 3rem)';
+  if (len <= 30) return 'clamp(1.8rem, 6vw, 2.4rem)';
+  if (len <= 50) return 'clamp(1.4rem, 5vw, 2rem)';
+  return 'clamp(1.1rem, 4vw, 1.6rem)';
 };
 
 const getOptionBorderStyle = (option, question, feedback) => {
