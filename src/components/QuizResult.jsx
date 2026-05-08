@@ -1,9 +1,8 @@
-const QuizResult = ({ score, total, onNext }) => {
+const QuizResult = ({ score, total, onNext, currentGroup }) => {
   return (
     <div className="main">
-      <h1>クイズ結果</h1>
-      <h2>正解率:{score / total * 100}%  ({score} / {total})</h2>
-      <button className="button" onClick={onNext}>問題選択</button>
+      <h2>{currentGroup}</h2>
+      <h2>正解率:{Math.round(score / total * 100)}%  ({score} / {total})</h2>
     </div>
   );
 };

@@ -10,8 +10,8 @@ const GroupSelect = ({ onGroupSelect }) => {
 
   return (
     <div className="main">
-      <h2>問題選択</h2>
-      <h3>Silakan pilih pertanyaan</h3>
+      <h3>問題選択</h3>
+      <h3 style={{ padding: '0 16px' }}>Silakan pilih pertanyaan</h3>
       <ul style={{ listStyle: 'none', padding: 0 }}>
         {groups.map(group => (
           <li

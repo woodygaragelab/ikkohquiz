@@ -1,9 +1,9 @@
 const getQuestionFontSize = (text) => {
   const len = text.length;
-  if (len <= 15) return 'clamp(1.4rem, 5vw, 2rem)';
-  if (len <= 30) return 'clamp(1.1rem, 4vw, 1.6rem)';
-  if (len <= 50) return 'clamp(0.9rem, 3.5vw, 1.3rem)';
-  return 'clamp(0.7rem, 3vw, 1rem)';
+  if (len <= 15) return 'clamp(1.8rem, 6vw, 2.4rem)';
+  if (len <= 30) return 'clamp(1.4rem, 5vw, 2rem)';
+  if (len <= 50) return 'clamp(1.1rem, 4vw, 1.6rem)';
+  return 'clamp(0.9rem, 3.5vw, 1.3rem)';
 };
 
 const getOptionBorderStyle = (option, question, feedback) => {
@@ -20,7 +20,7 @@ const getOptionBorderStyle = (option, question, feedback) => {
 const QuizQuestion = ({ currentGroup, question, feedback, onAnswerClick }) => {
   return (
     <div className="main">
-      <div className="info">
+      <div className="info" style={{ fontSize: '0.75rem' }}>
         {currentGroup}-{question.no}
       </div>
       <div className="question" style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '0 16px' }}>
@@ -39,7 +39,7 @@ const QuizQuestion = ({ currentGroup, question, feedback, onAnswerClick }) => {
             key={index}
             onClick={() => !feedback && onAnswerClick(option)}
             className="option"
-            style={getOptionBorderStyle(option, question, feedback)}
+            style={{ outline: 'none', ...getOptionBorderStyle(option, question, feedback) }}
           >
             <img
               src={option.image}

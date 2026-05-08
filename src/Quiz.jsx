@@ -63,7 +63,7 @@ const QuizApp = () => {
       {showGroupSelect ? (
         <GroupSelect onGroupSelect={handleGroupSelect} />
       ) : showScore ? (
-        <QuizResult score={score} total={questions.length} onNext={handleNextClick} />
+        <QuizResult score={score} total={questions.length} onNext={handleNextClick} currentGroup={currentGroup} />
       ) : questions.length > 0 ? (
         <QuizQuestion
           currentGroup={currentGroup}
