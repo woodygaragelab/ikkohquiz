@@ -18,11 +18,20 @@ const getOptionBorderStyle = (option, question, feedback) => {
   return {};
 };
 
-const QuizQuestion = ({ currentGroup, question, feedback, onAnswerClick }) => {
+const QuizQuestion = ({ currentGroup, question, feedback, onAnswerClick, questionStats }) => {
+  const rate = questionStats && questionStats.count > 0
+    ? Math.round(questionStats.correct / questionStats.count * 100)
+    : null;
+
   return (
     <div className="main">
-      <div className="info" style={{ fontSize: '0.75rem' }}>
-        {currentGroup}-{question.no}
+      <div className="info" style={{ fontSize: '0.75rem', display: 'flex', gap: '8px', alignItems: 'center' }}>
+        <span>{currentGroup}-{question.no}</span>
+        {questionStats && questionStats.count > 0 && (
+          <span style={{ color: '#888' }}>
+            出題{questionStats.count}回 / 正答率{rate}%
+          </span>
+        )}
       </div>
       <div className="question" style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '0 16px' }}>
         {question.qimage && (
