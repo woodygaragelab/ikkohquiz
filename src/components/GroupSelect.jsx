@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { fetchGroups } from '../api/quizApi';
 
-const getGroupRate = (group, stats) => {
-  const keys = Object.keys(stats).filter(k => k.startsWith(`${group}-`));
+const getGroupRate = (groupId, stats) => {
+  const keys = Object.keys(stats).filter(k => k.startsWith(`${groupId}-`));
   const answered = keys.filter(k => stats[k].count > 0);
   if (answered.length === 0) return null;
   const avg = answered.reduce((sum, k) => sum + stats[k].correct / stats[k].count, 0) / answered.length;
@@ -21,12 +21,12 @@ const GroupSelect = ({ onGroupSelect, stats = {} }) => {
       <h3>問題選択</h3>
       <h3 style={{ padding: '0 16px' }}>Silakan pilih pertanyaan</h3>
       <ul style={{ listStyle: 'none', padding: 0 }}>
-        {groups.map(group => {
-          const rate = getGroupRate(group, stats);
+        {groups.map(g => {
+          const rate = getGroupRate(g.group, stats);
           return (
             <li
-              key={group}
-              onClick={() => onGroupSelect(group)}
+              key={g.group}
+              onClick={() => onGroupSelect(g.group)}
               style={{
                 padding: '12px 16px',
                 margin: '6px 0',
@@ -39,9 +39,12 @@ const GroupSelect = ({ onGroupSelect, stats = {} }) => {
                 alignItems: 'center',
               }}
             >
-              <span>{group}</span>
+              <div>
+                <div style={{ fontWeight: 'bold' }}>{g.group}. {g.native}</div>
+                <div style={{ fontSize: '0.85rem', color: '#444' }}>{g.target}</div>
+              </div>
               {rate !== null && (
-                <span style={{ fontSize: '0.8rem', color: '#555' }}>正答率 {rate}%</span>
+                <span style={{ fontSize: '0.8rem', color: '#555', whiteSpace: 'nowrap', marginLeft: '8px' }}>正答率 {rate}%</span>
               )}
             </li>
           );
