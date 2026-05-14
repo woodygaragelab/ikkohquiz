@@ -11,6 +11,17 @@ def lambda_handler(event, context):
     print(group)
     
     try:
+        # group="0" の場合はgrouplist.csvからグループ一覧を返す
+        if group == "0":
+            resp = s3.get_object(Bucket=bucket_name, Key='grouplist.csv')
+            content = resp['Body'].read().decode('utf-8-sig').splitlines()
+            reader = csv.DictReader(content)
+            groups = [row for row in reader]
+            return {
+                'statusCode': 200,
+                'body': json.dumps(groups)
+            }
+
         # S3からファイルを取得
         response = s3.get_object(Bucket=bucket_name, Key=list_name)
         content = response['Body'].read().decode('utf-8-sig').splitlines()
@@ -18,14 +29,6 @@ def lambda_handler(event, context):
         # CSVをJSONに変換
         reader = csv.DictReader(content)
         quiz_list = [row for row in reader]
-
-        # group="0" の場合はグループ一覧を返す
-        if group == "0":
-            groups = sorted(set(q['group'] for q in quiz_list))
-            return {
-                'statusCode': 200,
-                'body': json.dumps(groups)
-            }
 
         #groupに一致するものだけを抽出
         quiz_list = [q for q in quiz_list if q['group'] == group]
