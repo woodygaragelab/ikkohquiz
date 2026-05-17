@@ -5,6 +5,7 @@ import { fetchQuizData } from './api/quizApi.js'
 import GroupSelect from './components/GroupSelect.jsx'
 import QuizQuestion from './components/QuizQuestion.jsx'
 import QuizResult from './components/QuizResult.jsx'
+import Settings from './components/Settings.jsx'
 
 const QuizApp = () => {
   const [questions, setQuestions] = useState([]);
@@ -18,6 +19,15 @@ const QuizApp = () => {
     try { return JSON.parse(localStorage.getItem('quizStats') || '{}'); }
     catch { return {}; }
   });
+
+  const [userConfig, setUserConfig] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('userConfig') || 'null') || { userId: 'woody', native: 'jp', target: 'id' };
+    } catch {
+      return { userId: 'woody', native: 'jp', target: 'id' };
+    }
+  });
+  const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
     if (currentGroup === null) return;
@@ -74,8 +84,18 @@ const QuizApp = () => {
 
   return (
     <div className="container">
-      <Header onBack={showGroupSelect ? null : handleNextClick} />
-      {showGroupSelect ? (
+      <Header
+        onBack={showSettings ? null : (showGroupSelect ? null : handleNextClick)}
+        onSettings={() => setShowSettings(true)}
+        userConfig={userConfig}
+      />
+      {showSettings ? (
+        <Settings
+          userConfig={userConfig}
+          onSave={cfg => { setUserConfig(cfg); setShowSettings(false); }}
+          onClose={() => setShowSettings(false)}
+        />
+      ) : showGroupSelect ? (
         <GroupSelect onGroupSelect={handleGroupSelect} stats={stats} />
       ) : showScore ? (
         <QuizResult score={score} total={questions.length} onNext={handleNextClick} currentGroup={currentGroup} />

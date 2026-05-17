@@ -1,7 +1,14 @@
-const Header = ({ onBack }) => {
-    return (
-      <div className="header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <span>Ikkoh Quiz</span>
+const Header = ({ onBack, onSettings, userConfig }) => {
+  return (
+    <div className="header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <span>Ikkoh Quiz</span>
+      {userConfig && (
+        <span style={{ fontSize: '12px', color: '#ccc', lineHeight: 1.4, textAlign: 'center' }}>
+          {userConfig.userId}<br />
+          {userConfig.native} → {userConfig.target}
+        </span>
+      )}
+      <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
         {onBack && (
           <button
             onClick={onBack}
@@ -10,7 +17,17 @@ const Header = ({ onBack }) => {
             戻る
           </button>
         )}
+        {onSettings && (
+          <button
+            onClick={onSettings}
+            style={{ fontSize: '18px', padding: '4px 8px', cursor: 'pointer', background: 'transparent', border: 'none' }}
+            title="設定"
+          >
+            ⚙
+          </button>
+        )}
       </div>
-    );
-  };
-  export default Header;
+    </div>
+  );
+};
+export default Header;
