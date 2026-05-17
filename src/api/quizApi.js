@@ -8,32 +8,13 @@ const generateOptions = (correctQuestion, allQuestions) => {
   return [...shuffled, correctQuestion].sort(() => 0.5 - Math.random());
 };
 
-export const fetchGroups = async () => {
-  const headers = new Headers();
-  headers.append("Content-Type", "application/json");
-  const requestOptions = {
-    method: 'POST',
-    headers,
-    body: JSON.stringify({ group: "0" }),
-    redirect: 'follow'
-  };
-
-  const response = await fetch(API_URL, requestOptions);
-  const resjson = await response.json();
-  return JSON.parse(resjson.body);
-};
-
 export const fetchQuizData = async (group) => {
-  const headers = new Headers();
-  headers.append("Content-Type", "application/json");
-  const requestOptions = {
+  const response = await fetch(API_URL, {
     method: 'POST',
-    headers,
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ group: String(group) }),
-    redirect: 'follow'
-  };
-
-  const response = await fetch(API_URL, requestOptions);
+    redirect: 'follow',
+  });
   const resjson = await response.json();
   const bodyjson = JSON.parse(resjson.body);
 

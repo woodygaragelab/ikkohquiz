@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { fetchGroups } from '../api/quizApi';
+import { fetchGroups } from '../api/groupApi';
 
 const getGroupRate = (groupId, stats) => {
   const keys = Object.keys(stats).filter(k => k.startsWith(`${groupId}-`));
