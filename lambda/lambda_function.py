@@ -1,14 +1,12 @@
 import json
 import boto3
 import csv
-#import os
 s3 = boto3.client('s3')
 
 def lambda_handler(event, context):
     bucket_name = 'ikkohquiz'
     list_name = "quizlist.csv"
     group = event["group"]
-    #print(group)
     
     try:
         # group="0" の場合はgrouplist.csvからグループ一覧を返す
@@ -29,13 +27,9 @@ def lambda_handler(event, context):
         # CSVをJSONに変換
         reader = csv.DictReader(content)
         quiz_list = [row for row in reader]
-        #print(quiz_list)
-        #print(group)
-
 
         #groupに一致するものだけを抽出
         quiz_list = [q for q in quiz_list if q['group'] == group]
-        #print(quiz_list)
         
         #画像のfile名をpresignedURLに置き換える
         for q in quiz_list:
