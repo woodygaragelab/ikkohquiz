@@ -29,10 +29,14 @@ def lambda_handler(event, context):
         # CSVをJSONに変換
         reader = csv.DictReader(content)
         quiz_list = [row for row in reader]
+        print(quiz_list)
+        print(group)
+
 
         #groupに一致するものだけを抽出
         quiz_list = [q for q in quiz_list if q['group'] == group]
-
+        print(quiz_list)
+        
         #画像のfile名をpresignedURLに置き換える
         for q in quiz_list:
             for key in ('image', 'qimage'):

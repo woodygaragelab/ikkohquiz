@@ -40,8 +40,8 @@ const GroupSelect = ({ onGroupSelect, stats = {} }) => {
               }}
             >
               <div>
-                <div style={{ fontWeight: 'bold' }}>{g.group}. {g.native}</div>
-                <div style={{ fontSize: '0.85rem', color: '#444' }}>{g.target}</div>
+                <div style={{ fontWeight: 'bold' }}>{g.group}. {g.gname}</div>
+                <div style={{ fontSize: '0.85rem', color: '#444' }}>native: {g.native} / target: {g.target}</div>
               </div>
               {rate !== null && (
                 <span style={{ fontSize: '0.8rem', color: '#555', whiteSpace: 'nowrap', marginLeft: '8px' }}>正答率 {rate}%</span>
