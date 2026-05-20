@@ -1,14 +1,14 @@
 import json
 import boto3
 import csv
-import os
+#import os
 s3 = boto3.client('s3')
 
 def lambda_handler(event, context):
     bucket_name = 'ikkohquiz'
     list_name = "quizlist.csv"
     group = event["group"]
-    print(group)
+    #print(group)
     
     try:
         # group="0" の場合はgrouplist.csvからグループ一覧を返す
@@ -29,21 +29,23 @@ def lambda_handler(event, context):
         # CSVをJSONに変換
         reader = csv.DictReader(content)
         quiz_list = [row for row in reader]
-        print(quiz_list)
-        print(group)
+        #print(quiz_list)
+        #print(group)
 
 
         #groupに一致するものだけを抽出
         quiz_list = [q for q in quiz_list if q['group'] == group]
-        print(quiz_list)
+        #print(quiz_list)
         
         #画像のfile名をpresignedURLに置き換える
         for q in quiz_list:
             for key in ('image', 'qimage'):
                 if q.get(key):
+                    filename = q[key]
+                    s3_key = f"images/{filename}" if filename.lower().endswith('.png') else filename
                     q[key] = s3.generate_presigned_url(
                         'get_object',
-                        Params={'Bucket': bucket_name, 'Key': q[key]},
+                        Params={'Bucket': bucket_name, 'Key': s3_key},
                         ExpiresIn=3600  # 1時間 (3600秒)
                     )
 
